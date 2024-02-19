@@ -1,42 +1,201 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+@import url("https://fonts.googleapis.com/css2?family=Protest+Strike&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap');
+
+:root {
+  --color-primary: #6741d9;
+  --color-primary-light: #7950f2;
+  --color-text: #dee2e6;
+  --color-text-dark: #adb5bd;
+  --color-background-100: #343a408b;
+  --color-background-500: #2b3035;
+  --color-background-900: #212529;
+  --color-red: #fa5252;
+  --color-red-dark: #e03131;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color-background-900);
+  padding: 0.7vw 2.22vw;
+}
+
+/*  * Navbar start   */
+
+.nav-bar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  background-color: var(--color-primary-light);
+  height: 4vw;
+  width: 100%;
+  position: relative;
+  border-radius: 15px;
+  padding: 0 0.5vw;
 }
 
 .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  display: flex;
+  align-items: center;
+  gap: 0.5vw;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.logo span {
+  font-size: clamp(15px, 1.5vw, 30px);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.logo h1 {
+  font-size: clamp(20px, 3vw, 60px);
+  text-transform: uppercase;
+  /* font-family: ; */
+  font-family: "Protest Strike", sans-serif;
+  /* overflow: hidden; */
+  color: var(--color-text);
+}
+
+.search-box {
+  position: relative;
+  /* height: 70%; */
+  padding: 0.5vw 0.7vw;
+  border-radius: 25px;
+  outline: 0;
+  border: 0;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  font-size: clamp(10px, 1.22vw, 25px);
+  color: #fff;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.search-box::placeholder {
+  color: var(--color-text-dark);
+}
+
+.search-box:focus {
+  outline: none;
+  box-shadow: 0 2.4rem 2.4rem rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.num-results {
+  font-size: clamp(15px, 1.5vw, 30px);
+  /* font-family: sans-serif;
+   */
+   font-family: "Kode Mono", monospace;
+  text-align: center;
+  color: var(--color-text);
+}
+
+/* * Navbar End */
+
+/* * Side bar Start */
+
+.side-bar {
+  height: calc(100vh - 6.5vw);
+  width: 5vw;
+  background: var(--color-primary-light);
+  
+  border-radius: 15px;
+  list-style: none;
+  writing-mode: vertical-lr;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1vw 0vw;
+  font-family: "Kode Mono", monospace;
+}
+
+.side-bar li {
+  background: var(--color-background-100);
+  padding: .5vw .5vw;
+  border-radius: 15px;
+  color: var(--color-text);
+  cursor: pointer;
+  text-transform: capitalize;
+}
+
+/* * Side bar End */
+
+/* ^ main start */
+
+.main {
+  height: calc(100vh - 6.5vw);
+  width: 100%;
+  position: relative;
+  /* background: red; */
+  margin-top: 1vw;
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  gap: .8vw;
+}
+
+.box {
+  height: 100%;
+  width: 100%;
+  /* max-width: ; */
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: .8vw;
+  overflow: scroll;
+   grid-row-gap: 8px;
 }
 
 .card {
-  padding: 2em;
+  max-height: 25vw;
+  height: 20vw;
+  width: 100%;
+  position: relative;
+  /* background: red; */
+  border-radius: 15px;
+  overflow: hidden;
+  cursor: pointer;
 }
 
-.read-the-docs {
-  color: #888;
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: relative;
+  border-radius: 15px;
+  transition: all .5s;
+}
+
+.card:hover img {
+  transform: scale(1.1);
+}
+
+.hover-box {
+  position: absolute;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  top: 0;
+  left: 0;
+  z-index: 5;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.7vmax;
+  opacity: 0;
+  transition: all 0.5s ease-out;
+}
+
+.card:hover .hover-box {
+  opacity: 1;
+}
+
+/* * handeler  */
+
+.load {
+  font-size: clamp(30px, 3vw ,70px);
+  text-align: center;
+  color: var(--color-text);
+  font-family: "Kode Mono", monospace;
 }

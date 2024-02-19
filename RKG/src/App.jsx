@@ -1,33 +1,64 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useState } from 'react'
 import './App.css'
+import { Navbar, Logo, SearchBox, NumResults } from './components/Navbar'
+import { SideNavbar } from './components/SideNavbar'
+import Main from './components/Main'
+import { Box } from './components/Box'
+import Loading from './components/Loading'
 
+const apiKey = 'G1q_z2nwPqzM5R1S-FdpvO6RBVPgbvLtpOEoSieTKQs';
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [query, setQuery] = useState("");
+  const [images, setImages] = useState([]);
+  const [results, setResults] = useState(0);
+  const [isLoading, setIsLoading] = useState(false)
+
+  useEffect(() => {
+    const controller = new AbortController();
+    const per_page = Math.floor(Math.random() * 100) + 1;
+    async function apiCall() {
+      try {
+        setIsLoading(true);
+        const res = await fetch(`https://api.unsplash.com/search/photos?page=1&query=${query}&per_page=${per_page}&client_id=${apiKey}`, {
+          signal: controller.signal
+        });
+        const data = await res.json();
+        const result = data.results.map(item => item.urls.raw);
+        setResults(result.length);
+        setImages(result);
+      } catch (err) {
+        console.log(err);
+      }finally {
+        setIsLoading(false);
+      }
+    }
+
+    if (query.length < 3) {
+      // setResults(0)
+      // setImages([])
+      return;
+    }
+
+    apiCall();
+    return function () {
+      controller.abort();
+    }
+  }, [query])
+
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Navbar>
+        <Logo />
+        <SearchBox value={query} setQuery={setQuery} />
+        <NumResults count={results}/>
+      </Navbar>
+      <Main>
+        <SideNavbar setQuery={setQuery}/>
+        {isLoading && <Loading/>}
+        {!isLoading && <Box images={images}/>}
+      </Main>
     </>
   )
 }
