@@ -86,7 +86,7 @@ body {
   font-size: clamp(15px, 1.5vw, 30px);
   /* font-family: sans-serif;
    */
-   font-family: "Kode Mono", monospace;
+  font-family: "Kode Mono", monospace;
   text-align: center;
   color: var(--color-text);
 }
@@ -99,7 +99,6 @@ body {
   height: calc(100vh - 6.5vw);
   width: 5vw;
   background: var(--color-primary-light);
-  
   border-radius: 15px;
   list-style: none;
   writing-mode: vertical-lr;
@@ -127,12 +126,17 @@ body {
   height: calc(100vh - 6.5vw);
   width: 100%;
   position: relative;
-  /* background: red; */
   margin-top: 1vw;
   display: flex;
-  /* justify-content: space-between; */
   align-items: center;
   gap: .8vw;
+}
+
+.main-box {
+  height: 100%;
+  width: 100%;
+  overflow: scroll;
+  /* background: yellow; */
 }
 
 .box {
@@ -144,15 +148,14 @@ body {
   grid-template-columns: repeat(5, 1fr);
   gap: .8vw;
   overflow: scroll;
-   grid-row-gap: 8px;
+  grid-row-gap: 8px;
 }
 
 .card {
-  max-height: 25vw;
-  height: 20vw;
+  max-height: 30vw;
+  height: 25vw;
   width: 100%;
   position: relative;
-  /* background: red; */
   border-radius: 15px;
   overflow: hidden;
   cursor: pointer;
@@ -165,6 +168,7 @@ body {
   position: relative;
   border-radius: 15px;
   transition: all .5s;
+  overflow: hidden;
 }
 
 .card:hover img {
@@ -185,6 +189,45 @@ body {
   padding: 0.7vmax;
   opacity: 0;
   transition: all 0.5s ease-out;
+  pointer-events: none;
+}
+
+.hover-box .bottom-box,
+.top-box {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  height: 15%;
+}
+
+.hover-box .top-box {
+  justify-content: end;
+  gap: 1vmax;
+}
+
+.hover-box .size {
+  height: 80%;
+  width: 20%;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(0.7rem, 1.5vw, 1.7rem);
+  border-radius: 5px;
+  cursor: pointer;
+  pointer-events: all;
+}
+
+.hover-box .bottom-box .info {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: clamp(0.7rem, 1.5vw, 1.7rem);
+  gap: 1vmax;
+  color: #fff;
 }
 
 .card:hover .hover-box {
@@ -194,8 +237,107 @@ body {
 /* * handeler  */
 
 .load {
-  font-size: clamp(30px, 3vw ,70px);
+  font-size: clamp(30px, 3vw, 70px);
   text-align: center;
   color: var(--color-text);
   font-family: "Kode Mono", monospace;
+}
+
+.error {
+  font-size: clamp(25px, 2.5vw, 70px);
+  text-align: center;
+  color: var(--color-text);
+  font-family: "Kode Mono", monospace;
+}
+
+.error span {
+  font-size: clamp(25px, 3vw, 70px);
+}
+
+.load-btn {
+ 
+  border-radius: 15px;
+  position: absolute;
+  bottom: 2%;
+  left: 50%;
+  width: 10vw;
+  height: 4vw;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+ z-index: 100;
+}
+
+.load-btn .btn {
+  height: 100%;
+  width: 40%;
+  position: relative;
+  border-radius: 50%;
+  color: var(--color-red);
+  font-size: clamp(1rem, 1.5vw , 3rem);
+  font-weight: 600;
+  outline: 0;
+  border: 0;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  cursor: pointer;
+  transform: scale(.9);
+}
+
+.load-btn .btn:hover {
+  transform: scale(1);
+}
+
+.load-btn .btn:nth-child(2) {
+  color: var(--color-text);
+}
+
+/* ^ download page */
+
+.preview-box2 {
+  height: 100vh;
+  width: 100%;
+  background: var(--color-background-900);
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 1vw 2.5vw;
+  z-index: 200;
+  transition: all .3s;
+  display: flex;
+}
+
+.pre-btn {
+  position: absolute;
+  height: 4vw;
+  width: 4vw;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  cursor: pointer;
+  color: var(--color-text);
+  border: 0;
+  outline: 0;
+  right: 2%;
+  top: 2%;
+  transform: scale(.9);
+  transition: transform .2s;
+  z-index: 111;
+}
+
+.pre-btn:hover {
+  transform: scale(1.1);
+}
+
+.preview-box2 .top-box, .bottom-box2 {
+  position: relative;
+  height: 100%;
+  width: 50%;
+  border: 2px solid #7950f2;
+}
+
+.preview-box2 .top-box .download-img {
+  height: 15vw;
+  position: relative;
 }
